@@ -1,12 +1,8 @@
 # data dog create monitor 
-# 
 # arun7pulse org
-api_key = "095d1c1bc8907297e6c4925bd65f0bc6"
-application_key = "9205f16b85f8d712476528d0fca9c4bee03b507e"
 
-# lululemon org
-# api_key = "095d1c1bc8907297e6c4925bd65f0bc6"
-# application_key = "9205f16b85f8d712476528d0fca9c4bee03b507e"
+api_key = ""
+application_key = ""
 
 import requests
 import json
