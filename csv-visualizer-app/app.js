@@ -33,9 +33,10 @@ csvFileInput.addEventListener("change", async (event) => {
   }
 
   const headers = Object.keys(rows[0]);
-  const numericHeaders = headers.filter((header) =>
-    rows.every((row) => row[header] === "" || !Number.isNaN(Number(row[header])))
-  );
+  const numericHeaders = headers.filter((header) => {
+    const nonEmptyValues = rows.map((row) => row[header]).filter((value) => value !== "");
+    return nonEmptyValues.length > 0 && nonEmptyValues.every((value) => !Number.isNaN(Number(value)));
+  });
 
   populateSelect(xColumnSelect, headers);
   populateSelect(yColumnSelect, numericHeaders);
@@ -64,7 +65,7 @@ renderChartButton.addEventListener("click", () => {
   }
 
   const labels = rows.map((row) => row[xKey]);
-  const values = rows.map((row) => Number(row[yKey] || 0));
+  const values = rows.map((row) => (row[yKey] === "" ? null : Number(row[yKey])));
 
   if (chart) {
     chart.destroy();
