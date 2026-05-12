@@ -7,6 +7,8 @@ const renderChartButton = document.getElementById("renderChart");
 const tableContainer = document.getElementById("tableContainer");
 const chartCanvas = document.getElementById("chartCanvas");
 
+const MAX_PREVIEW_ROWS = 100;
+
 let rows = [];
 let chart;
 
@@ -17,7 +19,13 @@ csvFileInput.addEventListener("change", async (event) => {
   }
 
   const text = await file.text();
-  rows = parseCsv(text);
+  const parsedResult = parseCsv(text);
+  if (parsedResult.error) {
+    statusText.textContent = parsedResult.error;
+    return;
+  }
+
+  rows = parsedResult.data;
 
   if (!rows.length) {
     statusText.textContent = "No rows found in this CSV.";
@@ -90,15 +98,17 @@ function parseCsv(text) {
   });
 
   if (parsed.errors.length) {
-    return [];
+    return { data: [], error: "Could not parse CSV. Please verify the file format." };
   }
 
-  return parsed.data.map((row) =>
+  const data = parsed.data.map((row) =>
     Object.entries(row).reduce((acc, [key, value]) => {
       acc[key] = value == null ? "" : String(value).trim();
       return acc;
     }, {})
   );
+
+  return { data, error: "" };
 }
 
 function populateSelect(selectElement, options) {
@@ -130,7 +140,7 @@ function renderTable(data) {
   });
   thead.appendChild(headerRow);
 
-  data.slice(0, 100).forEach((row) => {
+  data.slice(0, MAX_PREVIEW_ROWS).forEach((row) => {
     const tr = document.createElement("tr");
     headers.forEach((header) => {
       const td = document.createElement("td");
