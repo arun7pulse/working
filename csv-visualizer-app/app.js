@@ -84,23 +84,21 @@ renderChartButton.addEventListener("click", () => {
 });
 
 function parseCsv(text) {
-  const lines = text
-    .split(/\r?\n/)
-    .map((line) => line.trim())
-    .filter(Boolean);
+  const parsed = Papa.parse(text, {
+    header: true,
+    skipEmptyLines: true,
+  });
 
-  if (!lines.length) {
+  if (parsed.errors.length) {
     return [];
   }
 
-  const headers = lines[0].split(",").map((header) => header.trim());
-  return lines.slice(1).map((line) => {
-    const values = line.split(",").map((value) => value.trim());
-    return headers.reduce((acc, header, index) => {
-      acc[header] = values[index] ?? "";
+  return parsed.data.map((row) =>
+    Object.entries(row).reduce((acc, [key, value]) => {
+      acc[key] = value == null ? "" : String(value).trim();
       return acc;
-    }, {});
-  });
+    }, {})
+  );
 }
 
 function populateSelect(selectElement, options) {

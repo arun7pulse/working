@@ -64,6 +64,10 @@ select:disabled {
   max-height: 360px;
 }
 
+#chartCanvas {
+  height: 360px !important;
+}
+
 table {
   width: 100%;
   border-collapse: collapse;

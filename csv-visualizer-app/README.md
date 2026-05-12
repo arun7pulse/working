@@ -4,7 +4,7 @@ Simple browser-based app to upload a CSV, preview rows, and visualize numeric co
 
 ## Run
 
-1. Open `/home/runner/work/working/working/csv-visualizer-app/index.html` in a browser.
+1. Open `csv-visualizer-app/index.html` in a browser.
 2. Upload a `.csv` file.
 3. Pick X-axis, Y-axis, and chart type.
 4. Click **Render Chart**.
