@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CSV Visualizer</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+  <main class="container">
+    <h1>CSV Data Visualizer</h1>
+
+    <section class="card">
+      <label for="csvFile">Upload CSV file</label>
+      <input type="file" id="csvFile" accept=".csv,text/csv">
+      <p id="status">Select a CSV file to begin.</p>
+    </section>
+
+    <section class="card controls">
+      <div>
+        <label for="xColumn">X-axis</label>
+        <select id="xColumn" disabled></select>
+      </div>
+      <div>
+        <label for="yColumn">Y-axis (numeric)</label>
+        <select id="yColumn" disabled></select>
+      </div>
+      <div>
+        <label for="chartType">Chart Type</label>
+        <select id="chartType" disabled>
+          <option value="bar">Bar</option>
+          <option value="line">Line</option>
+        </select>
+      </div>
+      <button id="renderChart" disabled>Render Chart</button>
+    </section>
+
+    <section class="card">
+      <h2>Chart</h2>
+      <canvas id="chartCanvas"></canvas>
+    </section>
+
+    <section class="card">
+      <h2>Data Preview</h2>
+      <div id="tableContainer"></div>
+    </section>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>
